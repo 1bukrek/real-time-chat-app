@@ -1,0 +1,59 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>RTChat</title>
+		<link rel="stylesheet" href="./css/index.css" />
+	</head>
+	<body>
+		<div class="chat">
+			<div class="tabs">
+				<input
+					type="radio"
+					class="tabs-radio"
+					name="tab-friend"
+					id="tab-1"
+					checked />
+				<label for="tab-1" class="tabs-label">Friends</label>
+				<div class="tabs-content">
+					<form id="add-friend-form" class="add-friend-form">
+						<input
+							type="text"
+							id="friend-name"
+							placeholder="Add friend" />
+						<button type="submit">Add</button>
+					</form>
+					<ul id="friends-list">
+						<li>deneme</li>
+					</ul>
+				</div>
+				<input
+					type="radio"
+					class="tabs-radio"
+					name="tab-friend"
+					id="tab-2" />
+				<label for="tab-2" class="tabs-label">Requests</label>
+				<div class="tabs-content">
+					<ul id="requests-list">
+						<li>istek 1</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content">
+				<ul id="messages"></ul>
+				<form id="form" action="">
+					<input
+						id="input"
+						autocomplete="off"
+						placeholder="Type a message..." />
+					<button>Send</button>
+				</form>
+			</div>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/index.js"></script>
+	</body>
+</html>
