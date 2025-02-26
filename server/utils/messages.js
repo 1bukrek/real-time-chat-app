@@ -1,8 +1,8 @@
 import database from "../database.js"
 
-function create_message(user_id, room_id, content) {
-    const query = `INSERT INTO messages (user_id, room_id, content) VALUES (?, ?, ?)`;
-    database.run(query, [user_id, room_id, content])
+function create_message(username, room_id, content) {
+    const query = `INSERT INTO messages (user_username, room_id, content) VALUES (?, ?, ?)`;
+    database.run(query, [username, room_id, content])
 }
 
 function get_all_messages(callback) {

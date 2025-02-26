@@ -18,36 +18,36 @@ database.serialize(() => {
 
     database.run(`
         CREATE TABLE IF NOT EXISTS friends (
-            user1_id INTEGER NOT NULL,
-            user2_id INTEGER NOT NULL,
+            user1_username INTEGER NOT NULL,
+            user2_username INTEGER NOT NULL,
             since DATETIME DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (user1_id, user2_id),
-            FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
-            FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE
+            PRIMARY KEY (user1_username, user2_username),
+            FOREIGN KEY (user1_username) REFERENCES users(username) ON DELETE CASCADE,
+            FOREIGN KEY (user2_username) REFERENCES users(username) ON DELETE CASCADE
         )
     `)
 
     database.run(`
         CREATE TABLE IF NOT EXISTS friend_requests (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            sender_id INTEGER NOT NULL,
-            receiver_id INTEGER NOT NULL,
+            sender_username INTEGER NOT NULL,
+            reciever_username INTEGER NOT NULL,
             status TEXT CHECK( status IN ('pending', 'accepted', 'rejected') ) DEFAULT 'pending',
             sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
-            FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE,
-            UNIQUE(sender_id, receiver_id)
+            FOREIGN KEY (sender_username) REFERENCES users(username) ON DELETE CASCADE,
+            FOREIGN KEY (reciever_username) REFERENCES users(username) ON DELETE CASCADE,
+            UNIQUE(sender_username, reciever_username)
         );
     `)
 
     database.run(`
         CREATE TABLE IF NOT EXISTS messages (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
+            user_username INTEGER NOT NULL,
             room_id INTEGER NOT NULL,
             content TEXT NOT NULL,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(user_id) REFERENCES users(id),
+            FOREIGN KEY(user_username) REFERENCES users(username),
             FOREIGN KEY(room_id) REFERENCES rooms(id)
         )
     `)

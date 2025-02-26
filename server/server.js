@@ -27,125 +27,46 @@ app.post("/register", (req, res) => {
         })
     }
 
-    // Check if the user already exists in the database
-    database.get(
-        "SELECT * FROM users WHERE users.username = ?",
-        [username],
-        (err, row) => {
-            if (err) {
-                return res.json({ success: false, message: "Database error" })
+    // check if the user already exists in the database
+    database.get("SELECT * FROM users WHERE users.username = ?", [username], (err, row) => {
+        if (err) return res.json({ success: false, message: "Database error!" })
+        if (row) return res.json({ success: false, message: "Username already exists!" })
+
+        // hash the password
+        const hashedPassword = bcrypt.hashSync(password, 8)
+
+        // insert the new user into the database
+        database.run("INSERT INTO users (username, password) VALUES (?, ?)", [username, hashedPassword],
+            function (err) {
+                if (err) return res.json({ success: false, message: "Failed to register user" })
+                res.json({ success: true, message: "User registered successfully!", })
             }
-            if (row) {
-                return res.json({
-                    success: false,
-                    message: "Username already exists!",
-                })
-            }
-
-            // Hash the password
-            const hashedPassword = bcrypt.hashSync(password, 8)
-
-            // Insert the new user into the database
-            database.run("INSERT INTO users (username, password, friends, friend_requests) VALUES (?, ?, ?, ?)", [username, hashedPassword, "", ""],
-                function (err) {
-                    if (err) {
-                        return res.json({
-                            success: false,
-                            message: "Failed to register user",
-                        })
-                    }
-
-                    res.json({
-                        success: true,
-                        message: "User registered successfully!",
-                    })
-                }
-            )
-        }
+        )
+    }
     )
 })
 
 app.post("/login", (req, res) => {
     const { username, password } = req.body
+    if (!username || !password) return res.json({ success: false, message: "Username and password are required.", })
 
-    if (!username || !password) {
-        return res.json({
-            success: false,
-            message: "Username and password are required.",
-        })
+    // find the user in the database by username
+    database.get("SELECT * FROM users WHERE username = ?", [username], (err, row) => {
+        if (err) return res.json({ success: false, message: "Database error" })
+        if (!row) return res.json({ success: false, message: "INVALID USERNAME OR PASSWORD", })
+
+        // compare the provided password with the hashed password from the database
+        const passwordMatch = bcrypt.compareSync(password, row.password)
+        if (passwordMatch) {
+            // create jwt token for one hour after successful login
+            const token = jwt.sign({ id: row.id, username: row.username }, "secretkey", { expiresIn: "1h" })
+            // return the token to the client
+            return res.json({ success: true, message: "Login successful!", token: token, })
+        } // if the passwords do not match
+        else return res.json({ success: false, message: "Invalid username or password", })
     }
-
-    // Find the user in the database by username
-    database.get("SELECT * FROM users WHERE username = ?", [username],
-        (err, row) => {
-            if (err) {
-                // If there is a database error:
-                return res.json({ success: false, message: "Database error" })
-            }
-
-            if (!row) {
-                // If user doesn't exist:
-                return res.json({
-                    success: false,
-                    message: "INVALID USERNAME OR PASSWORD",
-                })
-            }
-
-            // Compare the provided password with the hashed password from the database
-            const passwordMatch = bcrypt.compareSync(password, row.password)
-
-            if (passwordMatch) {
-                // Create JWT token "for one hour" after successful login
-                const token = jwt.sign(
-                    { id: row.id, username: row.username },
-                    "secretkey",
-                    { expiresIn: "1h" }
-                )
-
-                // Return the token to the client
-                return res.json({
-                    success: true,
-                    message: "Login successful!",
-                    token: token,
-                })
-            } else {
-                // If the passwords do not match
-                return res.json({
-                    success: false,
-                    message: "Invalid username or password",
-                })
-            }
-        }
     )
 })
-
-app.get("/users/:username", (req, res) => {
-    const { username } = req.params
-
-    database.get(
-        "SELECT * FROM users WHERE username =?",
-        [username],
-        (err, row) => {
-            if (err) {
-                return res.json({ success: false, message: "Database error" })
-            }
-
-            if (!row) {
-                return res.json({ success: false, message: "User not found" })
-            }
-
-            res.json({
-                success: true,
-                user: {
-                    id: row.id,
-                    username: row.username,
-                    friends: JSON.parse(row.friends),
-                },
-            })
-        }
-    )
-})
-
 
 io.on("connection", (socket) => {
     socket.on("authenticate", (token) => {
@@ -165,15 +86,12 @@ io.on("connection", (socket) => {
         console.log(data)
     })
 
-    socket.on("chat_message", ({ message, username }) => {
-        create_message(username, "0", message)
-        io.emit("chat_message", `${username}: ${message}`)
-    })
+    socket.on("chat_message", ({ message, username }) => create_message(username, "0", message))
 
     // creating a friend request once a event emitted from client side
-    socket.on("send_friend_request", ({ sender_id, reciever_id }) => {
-        database.run("INSERT INTO friend_requests (sender_id, receiver_id) VALUES(?, ?)", [sender_id, reciever_id], function (err) {
-            if (err) return res.json({ success: false, message: "Failed to send friend request", })
+    socket.on("send_friend_request", async ({ sender_username, reciever_username }) => {
+        await get_user_by_username(reciever_username).then(data => {
+            if (data) database.run("INSERT INTO friend_requests (sender_username, reciever_username) VALUES(?, ?)", [sender_username, reciever_username])
         })
     })
 })

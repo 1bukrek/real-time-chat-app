@@ -24,7 +24,6 @@ body {
 .tabs {
     width: 300px;
     min-width: 300px;
-    padding: 20px;
 
     background-color: #ccc;
     color: black;
@@ -37,18 +36,16 @@ body {
 }
 
 .tabs-label {
-    display: flexbox;
     cursor: pointer;
+
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .tabs-content {
     position: absolute;
     display: none;
-    width: 85%;
-}
-
-.tabs-content li {
-    margin-top: 0.5rem;
+    width: 100%;
 }
 
 .tabs-radio:checked+.tabs-label {
@@ -66,34 +63,25 @@ body {
     display: none;
 }
 
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-.content {
-    flex: 1;
-    width: 75%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
 #add-friend-form button {
+    padding: 0.5rem;
+
     border: none;
-    border-radius: 0 5px 5px 0;
-    padding: 8px;
+    border-radius: 0;
     cursor: pointer;
+
     color: white;
     background-color: #3498db;
 }
 
+#add-friend-form input {
+    border-radius: 0%;
+    background: #c3c3c3;
+}
+
 #add-friend-form {
     display: flex;
+    margin-bottom: 0.5rem;
 }
 
 #friends-list {
@@ -105,10 +93,23 @@ button {
 }
 
 #friends-list li {
-    padding: 8px;
-    margin-bottom: 10px;
-    background-color: #34495e;
-    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.5rem;
+    background-color: #cfcfcf;
+    border-bottom: 1px solid #adadad;
+}
+
+#friends-list li:hover {
+    background-color: rgb(221, 221, 221)
+}
+
+#friends-list li p {
+    color: #2f2f2f;
+    font-weight: bold;
+}
+
+#friends-list li small {
+    color: #5c5b5b;
 }
 
 #friend-name {
@@ -117,6 +118,14 @@ button {
     border: none;
     border-radius: 5px 0 0 5px;
     outline: none;
+}
+
+.content {
+    flex: 1;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #messages {
@@ -149,4 +158,13 @@ button {
     border-radius: 4px;
     margin-right: 10px;
     outline: none;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
 }
