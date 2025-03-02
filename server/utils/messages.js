@@ -1,4 +1,4 @@
-import database from "../database.js"
+import database from "../database/database.js"
 
 function create_message(username, room_id, content) {
     const query = `INSERT INTO messages (user_username, room_id, content) VALUES (?, ?, ?)`;

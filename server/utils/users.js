@@ -1,4 +1,4 @@
-import database from "../database.js"
+import database from "../database/database.js"
 
 function delete_all_users() {
     const query = `DELETE FROM users`

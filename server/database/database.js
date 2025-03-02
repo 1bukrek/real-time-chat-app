@@ -1,9 +1,16 @@
 import sqlite from "sqlite3"
+import path from "path"
+import { fileURLToPath } from "url"
+
+// find the directory name of the current module
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const sqlite3 = sqlite.verbose()
 
-const database = new sqlite3.Database("chat_app.db", (err) => {
-    if (err) return console.error("Veritabanı açılırken hata oluştu:", err.message)
+// create a new database object
+const database = new sqlite3.Database(path.join(__dirname, "chat_app.db"), (err) => {
+    if (err) console.error("Failed to connect to the database: ", err.message)
 })
 
 database.serialize(() => {

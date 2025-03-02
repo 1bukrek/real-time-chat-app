@@ -4,7 +4,7 @@ import { Server } from "socket.io"
 
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import database from "./database.js"
+import database from "./database/database.js"
 
 import { create_message } from "./utils/messages.js"
 import { get_user_by_username } from "./utils/users.js"

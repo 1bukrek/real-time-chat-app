@@ -1,20 +1,22 @@
 {
-  "name": "rtchat",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2",
-    "socket.io": "^4.8.1",
-    "sqlite3": "^5.1.7"
-  }
+	"name": "express-chat-app",
+	"version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"build": "cd server && npm install",
+		"start": "cd server && node server",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"express": "^4.21.2",
+		"jsonwebtoken": "^9.0.2",
+		"socket.io": "^4.8.1",
+		"sqlite3": "^5.1.7"
+	}
 }
