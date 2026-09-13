@@ -7,8 +7,10 @@
         <link rel="stylesheet" href="./css/login.css" />
     </head>
     <body>
+        <main class="auth-layout">
+        <div class="auth-intro"><span class="eyebrow">PRIVATE NETWORK / 01</span><h1>Make room<br>for <em>meaningful</em><br>conversation.</h1><p>A quieter place to keep your people close.</p></div>
         <div class="login-container">
-            <h2>Login</h2>
+            <span class="eyebrow">WELCOME BACK</span><h2>Sign in to RChat</h2><p class="form-note">Continue where the conversation left off.</p>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -25,6 +27,7 @@
                 </div>
                 <button type="submit" class="login-button">Login</button>
             </form>
+            <p id="form-status" class="form-status" role="alert"></p>
             <button
                 class="register-button"
                 onclick="window.location.href='/register.html'"
@@ -32,6 +35,7 @@
                 I don't have an account
             </button>
         </div>
+        </main>
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="js/login.js"></script>

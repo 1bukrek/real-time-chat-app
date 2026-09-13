@@ -1,44 +1,19 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f4f4f4;
-}
-.register-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.form-group {
-    margin-bottom: 15px;
-}
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-}
-.register-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.register-button:hover {
-    background-color: #218838;
-}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+* { box-sizing: border-box; }
+body { min-height: 100vh; margin: 0; color: #f2f6fb; background: radial-gradient(circle at 15% 10%, #1d4b78, transparent 34%), #05080d; font-family: 'Space Grotesk', sans-serif; }
+.auth-layout { display: grid; grid-template-columns: 1fr 430px; gap: 8vw; align-items: center; width: min(1080px, 90vw); min-height: 100vh; margin: auto; }
+.auth-intro h1 { margin: 20px 0; font-size: clamp(2.8rem, 6vw, 5.5rem); line-height: .95; letter-spacing: -.08em; }
+.auth-intro em { color: #4da3ff; font-style: normal; }
+.auth-intro p, .form-note { color: #8294a9; }
+.eyebrow { color: #8294a9; font-size: .68rem; letter-spacing: .18em; }
+.register-container { padding: 42px; border: 1px solid rgba(133,183,230,.24); background: rgba(8,20,33,.78); box-shadow: 18px 18px 0 rgba(24,59,99,.35); }
+h2 { margin: 18px 0 8px; font-size: 1.8rem; letter-spacing: -.05em; }
+.form-note { margin: 0 0 28px; font-size: .85rem; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; margin-bottom: 8px; color: #8294a9; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+.form-group input { width: 100%; padding: 14px; border: 1px solid rgba(133,183,230,.22); outline: none; color: #f2f6fb; background: rgba(255,255,255,.04); font: inherit; }
+.form-group input:focus { border-color: #4da3ff; }
+button { width: 100%; padding: 14px; border: 0; cursor: pointer; font: inherit; font-weight: 600; }
+.register-button { color: #05080d; background: #4da3ff; }
+.form-status { min-height: 18px; margin: 16px 0 0; color: #ff9e9e; font-size: .8rem; }
+@media (max-width: 760px) { .auth-layout { display: block; padding: 40px 0; } .auth-intro { margin-bottom: 40px; } .register-container { padding: 28px; } }

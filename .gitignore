@@ -5,6 +5,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Local secrets and runtime data
+.env
+server/database/*.db
+
 # Build files
 dist/
 build/

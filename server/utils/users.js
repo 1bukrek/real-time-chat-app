@@ -6,11 +6,10 @@ function delete_all_users() {
     database.run(query, (err) => {
         if (err) {
             console.error(
-                "An error occured while deleting the users:",
-                err.message
+                `[ERROR] [USERS] Could not delete all users: ${err.message}`
             )
         } else {
-            console.log("All messages have been deleted.")
+            console.log("[INFO] [USERS] Deleted all users.")
 
             // ID reset for users
             database.run(
@@ -18,11 +17,10 @@ function delete_all_users() {
                 (reset_err) => {
                     if (reset_err) {
                         console.error(
-                            "Error occured while reset:",
-                            reset_err.message
+                            `[ERROR] [USERS] Could not reset the user ID sequence: ${reset_err.message}`
                         )
                     } else {
-                        console.log("ID reseted.")
+                        console.log("[INFO] [USERS] Reset the user ID sequence.")
                     }
                 }
             )
@@ -55,12 +53,12 @@ function add_friend_to_user(username, friend) {
         [username],
         (err, row) => {
             if (err) {
-                console.error("ERROR FETCHING USER")
+                console.error(`[ERROR] [USERS] Could not fetch ${username}: ${err.message}`)
                 return
             }
 
             if (!row) {
-                console.log("USER NOT FOUND")
+                console.warn(`[WARN] [USERS] User not found: ${username}`)
                 return
             }
 
@@ -70,7 +68,7 @@ function add_friend_to_user(username, friend) {
                 : []
 
             if (friends_array.includes(friend)) {
-                console.log("FRIEND ALREADY ADDED")
+                console.info(`[INFO] [USERS] ${friend} is already a friend of ${username}.`)
                 return
             }
 
@@ -84,12 +82,11 @@ function add_friend_to_user(username, friend) {
                 (err) => {
                     if (err) {
                         console.error(
-                            "ERROR UPDATING FRIEND LIST:",
-                            err.message
+                            `[ERROR] [USERS] Could not update the friend list for ${username}: ${err.message}`
                         )
                         return
                     }
-                    console.log("FRIEND ADDED")
+                    console.log(`[INFO] [USERS] Added ${friend} to ${username}'s friend list.`)
                 }
             )
         }
@@ -102,14 +99,14 @@ function update_friend_request_list(username, friend) {
         [friend],
         (err, row) => {
             if (err) {
-                console.error("ERROR FETCHING USER")
+                console.error(`[ERROR] [USERS] Could not fetch ${friend}: ${err.message}`)
                 return
             }
 
             if (username == friend) return
 
             if (!row) {
-                console.error("USER NOT FOUND")
+                console.warn(`[WARN] [USERS] User not found: ${friend}`)
                 return
             }
 
@@ -119,7 +116,7 @@ function update_friend_request_list(username, friend) {
                 : []
 
             if (friend_requests_array.includes(friend)) {
-                console.error("FRIEND REQUEST ALREADY SENT")
+                console.info(`[INFO] [USERS] A friend request from ${username} to ${friend} already exists.`)
                 return
             }
 
@@ -133,8 +130,7 @@ function update_friend_request_list(username, friend) {
                 (err) => {
                     if (err) {
                         console.error(
-                            "ERROR UPDATING FRIEND REQUEST LIST:",
-                            err.message
+                            `[ERROR] [USERS] Could not update the friend requests for ${username}: ${err.message}`
                         )
                         return
                     }

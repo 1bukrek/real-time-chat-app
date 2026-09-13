@@ -7,8 +7,10 @@
         <link rel="stylesheet" href="css/register.css">
     </head>
     <body>
+        <main class="auth-layout">
+        <div class="auth-intro"><span class="eyebrow">PRIVATE NETWORK / 02</span><h1>Bring your<br><em>circle</em><br>closer.</h1><p>Start a private space for the conversations that matter.</p></div>
         <div class="register-container">
-            <h2>Register</h2>
+            <span class="eyebrow">NEW ACCOUNT</span><h2>Create your RChat account</h2><p class="form-note">It only takes a minute to get started.</p>
             <form id="registerForm">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -34,7 +36,9 @@
                 </div>
                 <button type="submit" class="register-button">Register</button>
             </form>
+            <p id="form-status" class="form-status" role="alert"></p>
         </div>
+        </main>
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="js/register.js"></script>

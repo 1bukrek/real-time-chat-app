@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RChat / Admin</title>
+    <link rel="stylesheet" href="./css/admin.css" />
+</head>
+<body>
+    <main class="admin-shell">
+        <header class="admin-header">
+            <div class="brand-lockup">
+                <div class="brand-mark">RC<span></span></div>
+                <div><span class="eyebrow">RCHAT / CONTROL ROOM</span><h1>Moderation dashboard</h1></div>
+            </div>
+            <div class="header-actions"><span id="admin-label" class="admin-label"></span><a href="/" class="text-link">Back to chat</a><button id="logout-button" class="ghost-button">Sign out</button></div>
+        </header>
+
+        <div id="page-status" class="page-status" role="status" aria-live="polite"></div>
+        <section class="stats-grid" aria-label="Overview">
+            <article class="stat-card"><span class="eyebrow">REGISTERED USERS</span><strong id="user-count">--</strong><span>accounts in the network</span></article>
+            <article class="stat-card"><span class="eyebrow">STORED MESSAGES</span><strong id="message-count">--</strong><span>messages across every room</span></article>
+            <article class="stat-card stat-card--accent"><span class="eyebrow">ADMIN MODE</span><strong>ACTIVE</strong><span>destructive actions are enabled</span></article>
+        </section>
+
+        <section class="panel users-panel">
+            <div class="panel-heading"><div><span class="eyebrow">DIRECTORY</span><h2>Users</h2></div><div class="panel-tools"><input id="user-search" type="search" placeholder="Search users" aria-label="Search users" /><button id="delete-users-button" class="danger-button">Delete all users</button></div></div>
+            <div class="table-wrap"><table><thead><tr><th>Username</th><th>Joined</th><th class="action-column">Action</th></tr></thead><tbody id="users-table"></tbody></table><p id="users-empty" class="empty-row">No users match this search.</p></div>
+        </section>
+
+        <section class="panel messages-panel">
+            <div class="panel-heading"><div><span class="eyebrow">CONTENT</span><h2>Messages</h2></div><div class="panel-tools"><input id="message-search" type="search" placeholder="Search messages" aria-label="Search messages" /><button id="delete-messages-button" class="danger-button">Delete all messages</button></div></div>
+            <div class="table-wrap"><table><thead><tr><th>Author</th><th>Message</th><th>Sent</th><th class="action-column">Action</th></tr></thead><tbody id="messages-table"></tbody></table><p id="messages-empty" class="empty-row">No messages match this search.</p></div>
+        </section>
+    </main>
+    <script src="./js/admin.js"></script>
+</body>
+</html>

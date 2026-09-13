@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root { --ink: #05080d; --panel: #091522; --blue: #4da3ff; --line: rgba(133,183,230,.2); --muted: #8294a9; --white: #f2f6fb; --danger: #ff8b8b; --green: #78e6a6; }
+* { box-sizing: border-box; }
+body { min-height: 100vh; margin: 0; color: var(--white); background: radial-gradient(circle at 92% 0%, #204b73, transparent 31%), var(--ink); font-family: 'Space Grotesk', sans-serif; }
+body::before { content: ''; position: fixed; inset: 0; z-index: -1; opacity: .3; background: repeating-linear-gradient(115deg, transparent 0 96px, rgba(91,155,213,.08) 97px, transparent 98px); pointer-events: none; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.admin-shell { width: min(1380px, 94vw); margin: 0 auto; padding: 38px 0 72px; }
+.admin-header, .panel-heading, .header-actions, .brand-lockup, .panel-tools { display: flex; align-items: center; }
+.admin-header, .panel-heading { justify-content: space-between; gap: 24px; }
+.brand-lockup { gap: 16px; }
+.brand-mark { position: relative; display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--blue); color: var(--blue); font-weight: 700; letter-spacing: .08em; }
+.brand-mark span { position: absolute; right: -1px; bottom: -1px; width: 7px; height: 7px; background: var(--blue); }
+.eyebrow { color: var(--muted); font-size: .64rem; letter-spacing: .19em; }
+h1, h2, p { margin: 0; } h1 { margin-top: 5px; font-size: clamp(1.45rem, 3vw, 2.25rem); letter-spacing: -.06em; } h2 { margin-top: 5px; font-size: 1.35rem; letter-spacing: -.04em; }
+.header-actions { gap: 18px; } .admin-label { color: var(--green); font-size: .76rem; } .text-link { color: var(--muted); font-size: .78rem; text-decoration: none; } .text-link:hover { color: var(--white); }
+.ghost-button, .danger-button { padding: 10px 13px; border: 1px solid var(--line); color: var(--white); background: transparent; font-size: .72rem; }
+.ghost-button:hover { border-color: var(--blue); color: var(--blue); } .danger-button { border-color: rgba(255,139,139,.4); color: var(--danger); } .danger-button:hover { background: rgba(255,139,139,.1); }
+.page-status { min-height: 20px; margin: 28px 0 10px; color: var(--danger); font-size: .78rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 42px; }
+.stat-card { min-height: 128px; padding: 22px; border: 1px solid var(--line); background: rgba(9,21,34,.72); } .stat-card strong { display: block; margin: 14px 0 5px; color: var(--white); font-size: 1.7rem; letter-spacing: -.05em; } .stat-card > span:last-child { color: var(--muted); font-size: .76rem; } .stat-card--accent strong { color: var(--green); font-size: 1.25rem; }
+.panel { margin-top: 18px; border: 1px solid var(--line); background: rgba(7,17,28,.8); } .panel-heading { padding: 22px 24px; border-bottom: 1px solid var(--line); } .panel-tools { gap: 10px; } .panel-tools input { width: 190px; padding: 10px 12px; border: 1px solid var(--line); outline: 0; color: var(--white); background: rgba(255,255,255,.04); } .panel-tools input:focus { border-color: var(--blue); }
+.table-wrap { overflow-x: auto; } table { width: 100%; border-collapse: collapse; font-size: .82rem; } th, td { padding: 15px 24px; border-bottom: 1px solid rgba(133,183,230,.12); text-align: left; } th { color: var(--muted); font-size: .64rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; } td { color: #d8e3ef; } td:first-child { color: var(--blue); font-weight: 600; } td.message-content { max-width: 520px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .action-column { width: 1%; white-space: nowrap; text-align: right; } .row-delete { padding: 6px 9px; border: 1px solid rgba(255,139,139,.3); color: var(--danger); background: transparent; font-size: .68rem; } .row-delete:hover { background: rgba(255,139,139,.1); } .empty-row { display: none; padding: 26px 24px; color: var(--muted); font-size: .8rem; } .empty-row.visible { display: block; }
+@media (max-width: 760px) { .admin-shell { width: min(100% - 32px, 600px); padding-top: 22px; } .admin-header, .panel-heading { align-items: flex-start; flex-direction: column; } .header-actions, .panel-tools { width: 100%; flex-wrap: wrap; } .panel-tools input { flex: 1; min-width: 150px; } .stats-grid { grid-template-columns: 1fr; margin-bottom: 28px; } th, td { padding: 13px 14px; } .admin-header .header-actions { justify-content: space-between; } }

@@ -1,8 +1,21 @@
 import database from "../database/database.js"
 
-function create_message(username, room_id, content) {
+function create_message(username, room_id, content, callback) {
     const query = `INSERT INTO messages (user_username, room_id, content) VALUES (?, ?, ?)`;
-    database.run(query, [username, room_id, content])
+    database.run(query, [username, room_id, content], function (err) {
+        callback(err, { id: this.lastID, username, room_id, content })
+    })
+}
+
+function get_messages_by_room(room_id, callback) {
+    const query = `
+        SELECT id, user_username AS username, room_id, content, timestamp
+        FROM messages
+        WHERE room_id = ?
+        ORDER BY timestamp ASC, id ASC
+    `
+
+    database.all(query, [room_id], callback)
 }
 
 function get_all_messages(callback) {
@@ -30,7 +43,7 @@ function get_message_by_id(message_id) {
 
     database.get(query, [message_id], (err, row) => {
         if (err) {
-            console.error("Error occured while searchind message id: ", err.message);
+            console.error(`[ERROR] [MESSAGES] Could not find message ${message_id}: ${err.message}`)
             return;
         }
 
@@ -46,16 +59,16 @@ function delete_all_messages() {
 
     database.run(query, (err) => {
         if (err) {
-            console.error("An error occured while deleting the messages:", err.message)
+            console.error(`[ERROR] [MESSAGES] Could not delete all messages: ${err.message}`)
         } else {
-            console.log("All messages have been deleted.")
+            console.log("[INFO] [MESSAGES] Deleted all messages.")
 
             // ID reset for messages
             database.run(`DELETE FROM sqlite_sequence WHERE name='messages'`, (resetErr) => {
                 if (resetErr) {
-                    console.error("Error occured while reset:", resetErr.message)
+                    console.error(`[ERROR] [MESSAGES] Could not reset the message ID sequence: ${resetErr.message}`)
                 } else {
-                    console.log("ID reseted.")
+                    console.log("[INFO] [MESSAGES] Reset the message ID sequence.")
                 }
             });
         }
@@ -63,4 +76,4 @@ function delete_all_messages() {
     });
 }
 
-export { create_message, get_all_messages, get_message_by_id, delete_all_messages };
+export { create_message, get_messages_by_room, get_all_messages, get_message_by_id, delete_all_messages };

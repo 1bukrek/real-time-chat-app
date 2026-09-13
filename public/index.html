@@ -9,7 +9,23 @@
 	</head>
 	<body>
 		<div class="chat">
-			<div class="tabs">
+			<aside class="sidebar">
+				<div class="brand-mark"><span>RC</span><i></i></div>
+				<div class="brand-copy">
+					<span class="eyebrow">PRIVATE NETWORK</span>
+					<h1>RChat</h1>
+					<p>Conversations with intent.</p>
+				</div>
+				<section class="account-card" aria-label="Signed-in account">
+					<div class="account-avatar" id="account-avatar">G</div>
+					<div class="account-details">
+						<span class="eyebrow">SIGNED IN AS</span>
+						<strong id="account-username">Guest</strong>
+					</div>
+					<button id="logout-button" type="button" title="Sign out" aria-label="Sign out">↗</button>
+				</section>
+				<div class="sidebar-rule"></div>
+				<div class="tabs">
 				<input
 					type="radio"
 					class="tabs-radio"
@@ -23,7 +39,7 @@
 							type="text"
 							id="friend-name"
 							placeholder="Add friend" />
-						<button type="submit">Add</button>
+						<button type="submit"><span>+</span> Add friend</button>
 					</form>
 					<ul id="friends-list"></ul>
 				</div>
@@ -32,19 +48,41 @@
 					class="tabs-radio"
 					name="tab-friend"
 					id="tab-2" />
-				<label for="tab-2" class="tabs-label">Requests</label>
+				<input type="radio" class="tabs-radio" name="tab-friend" id="tab-2" />
+				<label for="tab-2" class="tabs-label">Groups</label>
 				<div class="tabs-content">
+					<div class="panel-heading"><span>YOUR GROUPS</span><small>Shared spaces</small></div>
+					<form id="create-group-form" class="group-composer">
+						<label for="group-name">New group</label>
+						<input type="text" id="group-name" placeholder="Group name" maxlength="80" required />
+						<input type="text" id="group-members" placeholder="Add usernames, separated by commas" />
+						<button type="submit"><span>+</span> Create group</button>
+					</form>
+					<ul id="groups-list"></ul>
+				</div>
+				<input type="radio" class="tabs-radio" name="tab-friend" id="tab-3" />
+				<label for="tab-3" class="tabs-label">Requests</label>
+				<div class="tabs-content">
+					<div class="panel-heading"><span>INBOX</span><small>Friend requests</small></div>
 					<ul id="requests-list"></ul>
 				</div>
-			</div>
+				</div>
+				<div class="sidebar-footer"><span class="status-dot"></span><span id="connection-status">Connecting to network</span></div>
+			</aside>
 			<div class="content">
-				<ul id="messages"></ul>
+				<header class="chat-header">
+					<div><span id="conversation-type" class="eyebrow">PRIVATE CONVERSATION</span><h2 id="conversation-title">Select a friend</h2></div>
+					<div class="header-meta"><span class="status-dot"></span><span id="user-label">Guest</span></div>
+				</header>
+				<ul id="messages"><li class="empty-state"><strong>Your space is quiet.</strong><span>Send a message to start the conversation.</span></li></ul>
+				<div id="chat-status" class="inline-status" role="status" aria-live="polite"></div>
 				<form id="form" action="">
 					<input
 						id="input"
 						autocomplete="off"
-						placeholder="Type a message..." />
-					<button>Send</button>
+						placeholder="Select a friend to start chatting..."
+						disabled />
+					<button><span>Send</span><b>↗</b></button>
 				</form>
 			</div>
 		</div>
